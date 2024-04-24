@@ -15,6 +15,4 @@ describe('Dropdown Tests', () => {
     // expect(statesUS).toContain('New York');
     // expect(statesUS).toContain('Texas');
   });
-
-  // Add more test cases as needed
 });
