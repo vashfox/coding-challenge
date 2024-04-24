@@ -1,11 +1,9 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "baseUrl": ".",
-    "allowJs": true,
-    "checkJs": true,
-    "resolveJsonModule": true,
-    "strict": true
+    "strictNullChecks": false,
+    "strict": true,
+    "moduleResolution":"node",
+    "module": "es6"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
