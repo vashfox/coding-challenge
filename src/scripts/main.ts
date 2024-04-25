@@ -47,6 +47,7 @@ const countrySelect: HTMLSelectElement = document.getElementById(
 const stateSelect: HTMLSelectElement = document.getElementById(
   'stateDropdown',
 ) as HTMLSelectElement;
+const result: HTMLDivElement = document.getElementById('result') as HTMLDivElement;
 
 // Initialization of countries & state data container.
 let countryOptions: Country[] = [];
@@ -82,6 +83,7 @@ let hiddenOption = (el: HTMLSelectElement) => {
  * @param el type HTMLSelectElement
  */
 let onCreateStateOptions = (el: HTMLSelectElement) => {
+  identifyResult(true);
   onResetStateOptions(el);
   hiddenOption(el);
   stateOptions.forEach((optionData) => {
@@ -91,6 +93,20 @@ let onCreateStateOptions = (el: HTMLSelectElement) => {
     el.appendChild(option);
   });
 };
+
+function identifyResult(isReset: boolean = false) {
+  if (!isReset) {
+    const headerThree = document.createElement('H3');
+    const countryIDX = countrySelect.selectedIndex,
+      stateIDX = stateSelect.selectedIndex;
+    const countrySelected = countrySelect.options[countryIDX],
+      stateSelected = stateSelect.options[stateIDX];
+    headerThree.innerHTML = `YOU ARE FROM <span>${countrySelected.text}, ${stateSelected.text}</span>`;
+    result.appendChild(headerThree);
+  } else {
+    result.innerHTML = '';
+  }
+}
 
 // To set a placeholder disabled option on country/state select input as default upon page load.
 hiddenOption(stateSelect);
@@ -108,10 +124,14 @@ countrySelect.addEventListener('change', (event) => {
 stateSelect.addEventListener('change', (event) => {
   const selectedValue = (event.target as HTMLSelectElement).value;
   console.log(`Selected value: ${selectedValue}`);
+
+  identifyResult();
 });
 
 // API Request Load countries initially
 export async function onLoad() {
+  console.log('Initialized Fetching Countries.');
+
   // Populate country variable with data from response
   const res = await getCountries();
   countryOptions = (Array.isArray(res) && res) || [];
@@ -127,6 +147,8 @@ export async function onLoad() {
 
 // On load selected country states via countryId
 export async function onLoadCountryStates(countryId: number) {
+  console.log('Initialized Fetching Country States.');
+
   // Populate states variable with data from response
   const res = await getStatesByCountryId(countryId);
   stateOptions = (Array.isArray(res) && res) || [];

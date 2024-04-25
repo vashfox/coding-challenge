@@ -93,6 +93,7 @@ function getStatesByCountryId(countryId) {
 }
 var countrySelect = document.getElementById('countryDropdown');
 var stateSelect = document.getElementById('stateDropdown');
+var result = document.getElementById('result');
 // Initialization of countries & state data container.
 var countryOptions = [];
 var stateOptions = [];
@@ -123,6 +124,7 @@ var hiddenOption = function (el) {
  * @param el type HTMLSelectElement
  */
 var onCreateStateOptions = function (el) {
+    identifyResult(true);
     onResetStateOptions(el);
     hiddenOption(el);
     stateOptions.forEach(function (optionData) {
@@ -132,6 +134,19 @@ var onCreateStateOptions = function (el) {
         el.appendChild(option);
     });
 };
+function identifyResult(isReset) {
+    if (isReset === void 0) { isReset = false; }
+    if (!isReset) {
+        var headerThree = document.createElement('H3');
+        var countryIDX = countrySelect.selectedIndex, stateIDX = stateSelect.selectedIndex;
+        var countrySelected = countrySelect.options[countryIDX], stateSelected = stateSelect.options[stateIDX];
+        headerThree.innerHTML = "YOU ARE FROM <span>".concat(countrySelected.text, ", ").concat(stateSelected.text, "</span>");
+        result.appendChild(headerThree);
+    }
+    else {
+        result.innerHTML = '';
+    }
+}
 // To set a placeholder disabled option on country/state select input as default upon page load.
 hiddenOption(stateSelect);
 hiddenOption(countrySelect);
@@ -145,6 +160,7 @@ countrySelect.addEventListener('change', function (event) {
 stateSelect.addEventListener('change', function (event) {
     var selectedValue = event.target.value;
     console.log("Selected value: ".concat(selectedValue));
+    identifyResult();
 });
 // API Request Load countries initially
 export function onLoad() {

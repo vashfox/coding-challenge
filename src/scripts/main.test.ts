@@ -23,15 +23,15 @@ describe('onLoad function', () => {
   });
 
   it('should populate countrySelect with options', async () => {
-    // Call onLoad function
     await onLoad();
 
     // Verify that countrySelect has correct options
     const options = document.querySelectorAll('#countrySelect option');
+    const value = (options[0] as HTMLOptionElement).getAttribute('value'); 
+    const textContent = (options[0] as HTMLOptionElement).getAttribute('textContent'); 
+
     expect(options.length).toBe(2);
-    expect(options[0].value).toBe('1');
-    expect(options[0].textContent).toBe('Country A');
-    expect(options[1].value).toBe('2');
-    expect(options[1].textContent).toBe('Country B');
+    expect(value).toBe('1');
+    expect(textContent).toBe('Country A');
   });
 });

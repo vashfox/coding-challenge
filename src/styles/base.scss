@@ -3,6 +3,7 @@
 $background: #1d1f20;
 $select-color: #fff;
 $select-background: #c0392b;
+$result: #ffff00;
 $base-margin: 20px;
 
 * {
@@ -145,4 +146,13 @@ form {
 .country-wrapper,
 .state-wrapper {
   margin-top: $base-margin;
+}
+
+.result-ui {
+  color: $select-color;
+  margin-top: $base-margin;
+
+  > h3 > span {
+    color: $result;
+  }
 }
