@@ -1,4 +1,4 @@
-export type States = { 
-    id: number; 
-    value: string 
+export type States = {
+  id: number;
+  value: string;
 };

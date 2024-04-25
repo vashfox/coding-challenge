@@ -1,4 +1,4 @@
-// import { onLoad, onLoadCountryStates } from './main'; 
+// import { onLoad, onLoadCountryStates } from './main';
 describe('Dropdown Tests', function () {
     it('should load countries correctly', function () {
         // const countries = onLoad();

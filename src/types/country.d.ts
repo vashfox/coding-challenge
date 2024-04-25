@@ -1,4 +1,4 @@
-export type Country = { 
-    id: number; 
-    value: string 
+export type Country = {
+  id: number;
+  value: string;
 };
