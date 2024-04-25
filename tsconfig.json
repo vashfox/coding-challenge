@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "strictNullChecks": false,
-    "strict": true,
     "moduleResolution":"node",
-    "module": "es6"
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+    "module": "ES6"
+  }
 }

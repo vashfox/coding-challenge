@@ -20,7 +20,7 @@ body {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 4px;
-  background: #1D1F20;
+  background: #1d1f20;
 }
 
 h1 {
@@ -36,7 +36,7 @@ h1 {
   color: #fff;
 }
 h1 span {
-  color: #FF908B;
+  color: #ff908b;
 }
 
 form {
@@ -61,7 +61,7 @@ form {
   height: 4rem;
   font-size: 1.1rem;
   padding: 1rem;
-  background-color: #FAFCFD;
+  background-color: #fafcfd;
   border: 3px solid transparent;
   transition: 0.3s ease-in-out;
 }
@@ -69,7 +69,7 @@ form {
   color: #333;
 }
 .chosen-value:hover {
-  background-color: #FF908B;
+  background-color: #ff908b;
   cursor: pointer;
 }
 .chosen-value:hover::-webkit-input-placeholder {
@@ -78,7 +78,7 @@ form {
 .chosen-value:focus, .chosen-value.open {
   box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
   outline: 0;
-  background-color: #FF908B;
+  background-color: #ff908b;
   color: #000;
 }
 .chosen-value:focus::-webkit-input-placeholder, .chosen-value.open::-webkit-input-placeholder {
@@ -100,7 +100,7 @@ form {
 .value-list li {
   position: relative;
   height: 4rem;
-  background-color: #FAFCFD;
+  background-color: #fafcfd;
   padding: 1rem;
   font-size: 1.1rem;
   display: flex;
@@ -110,7 +110,7 @@ form {
   opacity: 1;
 }
 .value-list li:hover {
-  background-color: #FF908B;
+  background-color: #ff908b;
 }
 .value-list li.closed {
   max-height: 0;

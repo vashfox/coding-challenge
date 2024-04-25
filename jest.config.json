@@ -1,0 +1,6 @@
+{
+  "testEnvironment": "jsdom",
+  "modulePaths": ["<rootDir>/src/"],
+  "bail": 1,
+  "verbose": true
+}

@@ -1,7 +1,45 @@
-import { apiRequest } from './../api';
+import { Country } from './../types/country';
+import { States } from './../types/state';
 
-type Country = { id: number; value: string };
-type States = { id: number; value: string };
+const baseUrl = 'https://fedt.unruffledneumann.xyz/api/v1';
+const myHeaders = new Headers();
+myHeaders.append('x-api-key', 'rLn*xzeZ%U+(PRuK%:v@C(a3j=<.[TWX(F^,EDrv');
+
+async function getCountries() {
+  try {
+    let res = await fetch(`${baseUrl}/countries`, {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow',
+    })
+      .then((response) => response.text())
+      .then((result) => result)
+      .catch((error) => error.response);
+
+    return JSON.parse(res);
+  } catch (error) {
+    console.log('Unexpected error:', error);
+    return 'An unexpected error occurred';
+  }
+}
+
+async function getStatesByCountryId(countryId: number) {
+  try {
+    let res = await fetch(`${baseUrl}/countries/${countryId}/states`, {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow',
+    })
+      .then((response) => response.text())
+      .then((result) => result)
+      .catch((error) => error.response);
+
+    return JSON.parse(res);
+  } catch (error) {
+    console.log('Unexpected error:', error);
+    return 'An unexpected error occurred';
+  }
+}
 
 const countrySelect: HTMLSelectElement = document.getElementById(
   'countryDropdown',
@@ -10,36 +48,14 @@ const stateSelect: HTMLSelectElement = document.getElementById(
   'stateDropdown',
 ) as HTMLSelectElement;
 
-const countryOptions: Country[] = [
-  {
-    id: 13,
-    value: 'Australia',
-  },
-  {
-    id: 86,
-    value: 'Germany',
-  },
-  {
-    id: 165,
-    value: 'New Zealand',
-  },
-];
+// Initialization of countries & state data container.
+let countryOptions: Country[] = [];
+let stateOptions: States[] = [];
 
-const stateOptions: States[] = [
-  {
-    id: 238,
-    value: 'Australian Capital Territory',
-  },
-  {
-    id: 239,
-    value: 'New South Wales',
-  },
-  {
-    id: 240,
-    value: 'Northern Territory',
-  },
-];
-
+/**
+ * To clear states options upon trigger and set values to null
+ * @param el type HTMLSelectElement
+ */
 let onResetStateOptions = (el: HTMLSelectElement) => {
   el.selectedIndex = null;
   var i,
@@ -49,6 +65,10 @@ let onResetStateOptions = (el: HTMLSelectElement) => {
   }
 };
 
+/**
+ * To Generate a hidden option / placeholder as default hidden values.
+ * @param el type HTMLSelectElement
+ */
 let hiddenOption = (el: HTMLSelectElement) => {
   const option = document.createElement('option');
   option.textContent = `Select an option...`;
@@ -57,6 +77,10 @@ let hiddenOption = (el: HTMLSelectElement) => {
   el.appendChild(option);
 };
 
+/**
+ * To create and populate options supplied to the stateOptions.
+ * @param el type HTMLSelectElement
+ */
 let onCreateStateOptions = (el: HTMLSelectElement) => {
   onResetStateOptions(el);
   hiddenOption(el);
@@ -72,18 +96,13 @@ let onCreateStateOptions = (el: HTMLSelectElement) => {
 hiddenOption(stateSelect);
 hiddenOption(countrySelect);
 
-countryOptions.forEach((optionData) => {
-  const option = document.createElement('option');
-  option.value = optionData.id.toString();
-  option.textContent = optionData.value;
-  countrySelect.appendChild(option);
-});
-
+// EVENT LISTENERS
 countrySelect.addEventListener('change', (event) => {
   const selectedValue = (event.target as HTMLSelectElement).value;
   console.log(`Selected value: ${selectedValue}`);
 
-  onCreateStateOptions(stateSelect);
+  //Call api to load state of specified country id.
+  onLoadCountryStates(parseInt(selectedValue));
 });
 
 stateSelect.addEventListener('change', (event) => {
@@ -92,10 +111,32 @@ stateSelect.addEventListener('change', (event) => {
 });
 
 // API Request Load countries initially
+async function onLoad() {
+  console.log('Initialized Fetching Countries.');
 
-// function onIniLoad() {
-//   const res = apiRequest.getCountries();
-//   console.log(res);
-// }
+  // Populate country variable with data from response
+  const res = await getCountries();
+  countryOptions = (Array.isArray(res) && res) || [];
 
-// onIniLoad();
+  // Populate country select el with options loaded from api.
+  countryOptions.forEach((optionData) => {
+    const option = document.createElement('option');
+    option.value = optionData.id.toString();
+    option.textContent = optionData.value;
+    countrySelect.appendChild(option);
+  });
+}
+
+// On load selected country states via countryId
+async function onLoadCountryStates(countryId: number) {
+  console.log('Initialized Fetching Country States.');
+
+  // Populate states variable with data from response
+  const res = await getStatesByCountryId(countryId);
+  stateOptions = (Array.isArray(res) && res) || [];
+
+  // Load on create options for the states.
+  onCreateStateOptions(stateSelect);
+}
+
+onLoad();

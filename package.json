@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run prettier && npm run compile && npm run serve",
     "test": "jest",
-    "serve": "concurrently \"http-server src -a localhost -p 3000 -o\"",
+    "serve": "concurrently \"http-server ./src -p 8080 -o\"",
     "compile": "npx sass src/styles/base.scss src/styles/base.css && npx tsc",
     "prettier": "npx prettier . --check && npx prettier . --write"
   },
@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/vashfox/coding-challenge#readme",
   "dependencies": {
-    "axios": "^1.6.8",
     "jest-environment-jsdom": "^29.7.0",
     "scss": "^0.2.4",
     "typescript": "^5.4.5"
