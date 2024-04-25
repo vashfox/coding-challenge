@@ -111,9 +111,7 @@ stateSelect.addEventListener('change', (event) => {
 });
 
 // API Request Load countries initially
-async function onLoad() {
-  console.log('Initialized Fetching Countries.');
-
+export async function onLoad() {
   // Populate country variable with data from response
   const res = await getCountries();
   countryOptions = (Array.isArray(res) && res) || [];
@@ -128,9 +126,7 @@ async function onLoad() {
 }
 
 // On load selected country states via countryId
-async function onLoadCountryStates(countryId: number) {
-  console.log('Initialized Fetching Country States.');
-
+export async function onLoadCountryStates(countryId: number) {
   // Populate states variable with data from response
   const res = await getStatesByCountryId(countryId);
   stateOptions = (Array.isArray(res) && res) || [];

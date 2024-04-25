@@ -1,18 +1,37 @@
-// import { onLoad, onLoadCountryStates } from './main';
+import { onLoad } from './main';
 
-describe('Dropdown Tests', () => {
-  it('should load countries correctly', () => {
-    // const countries = onLoad();
-    // expect(countries).toHaveLength(2); // Replace with actual country count
-    // expect(countries).toContainEqual({ code: 1, name: 'United States' });
-    // expect(countries).toContainEqual({ code: 2, name: 'Canada' });
+jest.mock('./path-to-getCountries', () => ({
+  getCountries: jest.fn(() =>
+    Promise.resolve([
+      { id: 1, value: 'Country A' },
+      { id: 2, value: 'Country B' },
+    ]),
+  ),
+}));
+
+describe('onLoad function', () => {
+  beforeEach(() => {
+    // Create a mock countrySelect element
+    const countrySelect = document.createElement('select');
+    countrySelect.id = 'countrySelect';
+    document.body.appendChild(countrySelect);
   });
 
-  it('should load states for a given country', () => {
-    // const statesUS = onLoadCountryStates(1); // Replace with actual country code
-    // expect(statesUS).toHaveLength(3); // Replace with actual state count
-    // expect(statesUS).toContain('California');
-    // expect(statesUS).toContain('New York');
-    // expect(statesUS).toContain('Texas');
+  afterEach(() => {
+    // Clean up after each test
+    document.body.removeChild(document.getElementById('countrySelect'));
+  });
+
+  it('should populate countrySelect with options', async () => {
+    // Call onLoad function
+    await onLoad();
+
+    // Verify that countrySelect has correct options
+    const options = document.querySelectorAll('#countrySelect option');
+    expect(options.length).toBe(2);
+    expect(options[0].value).toBe('1');
+    expect(options[0].textContent).toBe('Country A');
+    expect(options[1].value).toBe('2');
+    expect(options[1].textContent).toBe('Country B');
   });
 });

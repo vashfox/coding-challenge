@@ -147,7 +147,7 @@ stateSelect.addEventListener('change', function (event) {
     console.log("Selected value: ".concat(selectedValue));
 });
 // API Request Load countries initially
-function onLoad() {
+export function onLoad() {
     return __awaiter(this, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
@@ -171,7 +171,7 @@ function onLoad() {
     });
 }
 // On load selected country states via countryId
-function onLoadCountryStates(countryId) {
+export function onLoadCountryStates(countryId) {
     return __awaiter(this, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
@@ -190,4 +190,3 @@ function onLoadCountryStates(countryId) {
     });
 }
 onLoad();
-export {};
